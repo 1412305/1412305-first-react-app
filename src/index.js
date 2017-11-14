@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
+import Toggle from 'material-ui/Toggle';
 
 function Square(props) {
   return (
@@ -110,7 +113,7 @@ class Game extends React.Component{
         const current = history[this.state.stepNumber];
         const winLine = calculateWinLine(current.squares);
         const isAsc = this.state.isAsc;
-        
+        var sortType = (isAsc) ? "Ascending" : "Descending";
 
         const moves = history.map((step, move) => {
             let desc = 'Start a new game';
@@ -128,12 +131,12 @@ class Game extends React.Component{
             if (this.state.stepNumber === move) 
                 return (
                     <li key={move}>                      
-                         <button onClick={() => this.jumpTo(move)}><b>{desc}</b></button>                 
+                         <RaisedButton primary={true} label={ <b>{desc}</b>} onClick={() => this.jumpTo(move)}> </RaisedButton>                 
                     </li>
                 );
             return (
                 <li key={move}>                      
-                        <button onClick={() => this.jumpTo(move)}>{desc}</button>                 
+                          <RaisedButton primary={true} label={desc} onClick={() => this.jumpTo(move)}> </RaisedButton>                               
                 </li>
             );
           });
@@ -146,6 +149,7 @@ class Game extends React.Component{
         }
 
         return(
+        <MuiThemeProvider >
         <div className="game">
             <div className="game-board">
             <Board
@@ -156,13 +160,11 @@ class Game extends React.Component{
             </div>
             <div className="game-info">
                <div>{status}</div>
-               <label className="switch">
-                    <input type="checkbox" onClick={() => this.sort()}></input>
-                    <span className="slider round"></span>
-                </label>
+               <Toggle label={sortType} defaultToggled={true} onClick={() => this.sort()}/>
                <ol>{moves}</ol>
             </div>
         </div>
+        </MuiThemeProvider>
         );
     }
 }
