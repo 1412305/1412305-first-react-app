@@ -2,6 +2,7 @@
   "name": "1412305",
   "version": "0.1.0",
   "private": true,
+  "homepage" : "http://1412305.github.io",  
   "dependencies": {
     "react": "^16.1.0",
     "react-dom": "^16.1.0",
